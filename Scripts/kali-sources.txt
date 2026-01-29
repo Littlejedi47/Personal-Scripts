@@ -1,0 +1,26 @@
+# See https://www.kali.org/docs/general-use/kali-linux-sources-list-repositories/
+#deb http://http.kali.org/kali kali-rolling main contrib non-free
+#deb http://http.kali.org/kali kali-experimental main contrib non-free
+
+# Additional line for source packages
+# deb-src http://http.kali.org/kali kali-rolling main contrib non-free
+# deb-src http://http.kali.org/kali kali-rolling main contrib non-free
+
+# MobinHost Iran Mirror
+deb http://mirror.mobinhost.com/kali/ kali-rolling main contrib non-free
+deb http://mirror.mobinhost.com/kali/ kali-experimental main contrib non-free
+deb-src http://mirror.mobinhost.com/kali/ kali-rolling main contrib non-free
+deb-src http://mirror.mobinhost.com/kali/ kali-experimental main contrib non-free
+
+# RWTH Aachen Germany Mirror
+deb http://ftp.halifax.rwth-aachen.de/kali/ kali-rolling main contrib non-free
+deb http://ftp.halifax.rwth-aachen.de/kali/ kali-experimental main contrib non-free
+deb-src http://ftp.halifax.rwth-aachen.de/kali/ kali-rolling main contrib non-free
+deb-src http://ftp.halifax.rwth-aachen.de/kali/ kali-experimental main contrib non-free
+deb http://ftp.halifax.rwth-aachen.de/kali/ kali-bleeding-edge main contrib non-free
+
+# Kali Official Cloudflare-backed Mirror
+deb http://kali.download/kali/ kali-rolling main contrib non-free
+deb http://kali.download/kali/ kali-experimental main contrib non-free
+deb-src http://kali.download/kali/ kali-rolling main contrib non-free
+deb-src http://kali.download/kali/ kali-experimental main contrib non-free
