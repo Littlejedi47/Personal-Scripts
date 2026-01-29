@@ -1,0 +1,50 @@
+#############################################
+# 🇮🇷 IRAN - Removed (broken at the moment)
+#############################################
+# deb http://mirror.sbu.ac.ir/ubuntu/ plucky main restricted universe multiverse
+# deb http://mirrors.irnic.ir/ubuntu/ plucky main restricted universe multiverse
+
+#############################################
+# 🌍 TURKEY Mirror (Fast, Nearby)
+#############################################
+deb http://ftp.linux.org.tr/ubuntu/ plucky main restricted universe multiverse
+deb http://ftp.linux.org.tr/ubuntu/ plucky-updates main restricted universe multiverse
+deb http://ftp.linux.org.tr/ubuntu/ plucky-backports main restricted universe multiverse
+deb http://ftp.linux.org.tr/ubuntu/ plucky-security main restricted universe multiverse
+# deb-src http://ftp.linux.org.tr/ubuntu/ plucky main restricted universe multiverse
+
+#############################################
+# 🇩🇪 GERMANY (DFN – Reliable European mirror)
+#############################################
+deb http://ftp.fau.de/ubuntu/ plucky main restricted universe multiverse
+deb http://ftp.fau.de/ubuntu/ plucky-updates main restricted universe multiverse
+deb http://ftp.fau.de/ubuntu/ plucky-backports main restricted universe multiverse
+deb http://ftp.fau.de/ubuntu/ plucky-security main restricted universe multiverse
+# deb-src http://ftp.fau.de/ubuntu/ plucky main restricted universe multiverse
+
+#############################################
+# 🇷🇺 RUSSIA (Yandex Mirror – Usually fast)
+#############################################
+deb http://mirror.yandex.ru/ubuntu/ plucky main restricted universe multiverse
+deb http://mirror.yandex.ru/ubuntu/ plucky-updates main restricted universe multiverse
+deb http://mirror.yandex.ru/ubuntu/ plucky-backports main restricted universe multiverse
+deb http://mirror.yandex.ru/ubuntu/ plucky-security main restricted universe multiverse
+# deb-src http://mirror.yandex.ru/ubuntu/ plucky main restricted universe multiverse
+
+#############################################
+# 🇳🇱 NETHERLANDS (Leaseweb – Stable and fast)
+#############################################
+deb http://mirror.nl.leaseweb.net/ubuntu/ plucky main restricted universe multiverse
+deb http://mirror.nl.leaseweb.net/ubuntu/ plucky-updates main restricted universe multiverse
+deb http://mirror.nl.leaseweb.net/ubuntu/ plucky-backports main restricted universe multiverse
+deb http://mirror.nl.leaseweb.net/ubuntu/ plucky-security main restricted universe multiverse
+# deb-src http://mirror.nl.leaseweb.net/ubuntu/ plucky main restricted universe multiverse
+
+#############################################
+# 🌐 OFFICIAL UBUNTU MIRROR (CDN fallback)
+#############################################
+deb http://ir.archive.ubuntu.com/ubuntu/ plucky main restricted universe multiverse
+deb http://ir.archive.ubuntu.com/ubuntu/ plucky-updates main restricted universe multiverse
+deb http://ir.archive.ubuntu.com/ubuntu/ plucky-backports main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu/ plucky-security main restricted universe multiverse
+# deb-src http://archive.ubuntu.com/ubuntu/ plucky main restricted universe multiverse
