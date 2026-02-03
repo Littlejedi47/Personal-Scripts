@@ -1,66 +1,48 @@
 #!/usr/bin/env bash
-
 set -e
 
-echo "🔍 Detecting Ubuntu codename..."
-CODENAME=$(lsb_release -sc)
+echo "==> Fixing Ubuntu APT sources (clean + multi-mirror)"
 
-echo "📦 Ubuntu codename detected: $CODENAME"
-echo
+# Require root
+if [[ $EUID -ne 0 ]]; then
+  echo "Please run as root (sudo)"
+  exit 1
+fi
 
-SOURCES_FILE="/etc/apt/sources.list"
-BACKUP_FILE="/etc/apt/sources.list.backup.$(date +%F_%H-%M-%S)"
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
-echo "🗂 Backing up current sources.list to:"
-echo "   $BACKUP_FILE"
-sudo cp "$SOURCES_FILE" "$BACKUP_FILE"
+APT_DIR="/etc/apt"
+SOURCES_D="$APT_DIR/sources.list.d"
+UBUNTU_SOURCES="$SOURCES_D/ubuntu.sources"
 
-echo
-echo "✏️ Writing optimized sources.list ..."
+# Backup existing ubuntu.sources if it exists
+if [[ -f "$UBUNTU_SOURCES" ]]; then
+  echo "==> Backing up existing ubuntu.sources"
+  cp "$UBUNTU_SOURCES" "$UBUNTU_SOURCES.backup.$TIMESTAMP"
+fi
 
-sudo tee "$SOURCES_FILE" > /dev/null <<EOF
-#############################################
-# Optimized Ubuntu Sources
-# Generated automatically
-# Codename: $CODENAME
-#############################################
+# Backup legacy sources.list if it exists
+if [[ -f "$APT_DIR/sources.list" ]]; then
+  echo "==> Backing up legacy sources.list"
+  cp "$APT_DIR/sources.list" "$APT_DIR/sources.list.backup.$TIMESTAMP"
+fi
 
-# 🇹🇷 Turkey
-deb http://ftp.linux.org.tr/ubuntu/ $CODENAME main restricted universe multiverse
-deb http://ftp.linux.org.tr/ubuntu/ $CODENAME-updates main restricted universe multiverse
-deb http://ftp.linux.org.tr/ubuntu/ $CODENAME-backports main restricted universe multiverse
-deb http://ftp.linux.org.tr/ubuntu/ $CODENAME-security main restricted universe multiverse
+echo "==> Writing clean ubuntu.sources"
 
-# 🇩🇪 Germany (FAU)
-deb http://ftp.fau.de/ubuntu/ $CODENAME main restricted universe multiverse
-deb http://ftp.fau.de/ubuntu/ $CODENAME-updates main restricted universe multiverse
-deb http://ftp.fau.de/ubuntu/ $CODENAME-backports main restricted universe multiverse
-deb http://ftp.fau.de/ubuntu/ $CODENAME-security main restricted universe multiverse
-
-# 🇷🇺 Russia (Yandex)
-deb http://mirror.yandex.ru/ubuntu/ $CODENAME main restricted universe multiverse
-deb http://mirror.yandex.ru/ubuntu/ $CODENAME-updates main restricted universe multiverse
-deb http://mirror.yandex.ru/ubuntu/ $CODENAME-backports main restricted universe multiverse
-deb http://mirror.yandex.ru/ubuntu/ $CODENAME-security main restricted universe multiverse
-
-# 🇳🇱 Netherlands (Leaseweb)
-deb http://mirror.nl.leaseweb.net/ubuntu/ $CODENAME main restricted universe multiverse
-deb http://mirror.nl.leaseweb.net/ubuntu/ $CODENAME-updates main restricted universe multiverse
-deb http://mirror.nl.leaseweb.net/ubuntu/ $CODENAME-backports main restricted universe multiverse
-deb http://mirror.nl.leaseweb.net/ubuntu/ $CODENAME-security main restricted universe multiverse
-
-# 🌐 Official Ubuntu CDN (fallback)
-deb http://ir.archive.ubuntu.com/ubuntu/ $CODENAME main restricted universe multiverse
-deb http://ir.archive.ubuntu.com/ubuntu/ $CODENAME-updates main restricted universe multiverse
-deb http://ir.archive.ubuntu.com/ubuntu/ $CODENAME-backports main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu/ $CODENAME-security main restricted universe multiverse
+cat > "$UBUNTU_SOURCES" <<'EOF'
+Types: deb
+URIs:
+  http://ir.archive.ubuntu.com/ubuntu/
+  http://ftp.fau.de/ubuntu/
+  http://mirror.nl.leaseweb.net/ubuntu/
+  http://ftp.linux.org.tr/ubuntu/
+  http://security.ubuntu.com/ubuntu/
+Suites: questing questing-updates questing-backports questing-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 EOF
 
-echo
-echo "🔄 Updating package lists..."
-sudo apt update
+echo "==> Updating package lists"
+apt update
 
-echo
-echo "✅ Done!"
-echo "🧾 Backup saved as:"
-echo "   $BACKUP_FILE"
+echo "==> Done. Sources are clean, backed up, and warning-free."
